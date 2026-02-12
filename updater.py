@@ -1,6 +1,6 @@
 """
 Module: updater.py
-Version: 2.1.0
+Version: 2.0.0
 Author: Johnthesuper117
 Description: A modular, zip-based auto-updater for complex directory structures.
 Usage:
