@@ -14,7 +14,7 @@ import logging
 
 # --- CONFIGURATION ---
 CURRENT_VERSION = "1.0.1"
-REPO_URL = "https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/"
+REPO_URL = "https://raw.githubusercontent.com/Johnthesuper117/Self-Updating-Script/main/"
 VERSION_FILE_URL = REPO_URL + "version.json"
 
 # Setup Logging
