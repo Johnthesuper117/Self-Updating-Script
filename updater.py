@@ -1,6 +1,6 @@
 """
 Module: updater.py
-Version: 1.0.0
+Version: 2.0.0
 Author: Johnthesuper117
 Description: A modular, zip-based auto-updater for complex directory structures.
 Usage:
@@ -141,6 +141,25 @@ def update_now():
     if available:
         updater.do_update()
 
+def restart_program():
+    """
+    Restarts the current program.
+    Note: This will not work if the script is running in an IDE console 
+    (like PyCharm or VS Code internal terminal). It works best in a 
+    standard Command Prompt or Bash terminal.
+    """
+    print("Restarting application...")
+    
+    # Get the current Python interpreter executable (e.g., /usr/bin/python3 or python.exe)
+    python = sys.executable
+    
+    # Get the arguments passed to the script (e.g., main.py --verbose)
+    args = sys.argv
+    
+    # Re-execute the program with the same arguments
+    # os.execv replaces the process, so no code after this line runs.
+    os.execv(python, [python] + args)
+
 def check_only():
     """Helper function to just check."""
     updater = AutoUpdater()
@@ -152,6 +171,7 @@ if __name__ == "__main__":
     parser.add_argument('--check', action='store_true', help="Check for updates without installing.")
     parser.add_argument('--update', action='store_true', help="Check and apply updates if available.")
     parser.add_argument('--force', action='store_true', help="Force re-download regardless of version.")
+    parser.add_argument('--restart', action='store_true', help="Restart the application after update.")
     
     args = parser.parse_args()
     
@@ -160,10 +180,12 @@ if __name__ == "__main__":
     if args.force:
         logger.info("Forcing update...")
         updater.do_update()
+        restart_program()
     elif args.update:
         available, _, _ = updater.check_for_updates()
         if available:
             updater.do_update()
+            restart_program()
     else:
         # Default behavior if run directly: Just check
         updater.check_for_updates()
